@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Cron } from '@nestjs/schedule';
+import { Cron, CronExpression } from '@nestjs/schedule';
 import * as fs from 'fs';
 import * as readline from 'readline';
 import { ProductsService } from 'src/products/products.service';
@@ -17,7 +17,7 @@ export class CSVService {
         private readonly variantService: VariantsService
     ) {}
 
-    @Cron('5 * * * * *')
+    @Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)
     async handleCSVFile(): Promise<void> {
     const headers = [
         'SiteSource',
@@ -47,6 +47,10 @@ export class CSVService {
         'IsRX',
         'IsTBD',
     ];
+
+    // user should upload the file somewhere where we can read it like S3 Bucket or some other place
+    // for testing purposes I put the file inside the project dir
+    // if you want to test it locally you need to change the path of the file.
     const filePath = '/Users/astrit/AstritData/medical-app/images40.txt';
     const readInterface = readline.createInterface({
         input: fs.createReadStream(filePath),
@@ -70,7 +74,6 @@ export class CSVService {
         for (let index = 0; index < headers.length; index++) {
             entry[headers[index]] = values[index];
         }
-        //   results.push(entry);
         await this.handleCSVData(entry);
         console.log('entry....', entry);
         }

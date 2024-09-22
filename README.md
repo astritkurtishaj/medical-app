@@ -24,29 +24,41 @@
 
 ## Description
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+This is a medical project that has a scheduled task to run every day at midnight and update all the products or create new ones.
 
 ## Installation
-
+Clone the app from git respository
 ```bash
+$ cd ./path-to/medical-app
+
 $ npm install
 ```
 
 ## Running the app
+Before running the app please update the mongodb url in the `app.module.ts` file.
 
+Update the file path of `images40.txt`
+
+If you want to test in a shorter time than you must change the schedule time in `common/csv.service.ts` 
+
+from
+
+`@Cron(CronExpression.EVERY_DAY_AT_MIDNIGHT)`
+
+to
+
+`@Cron('5 * * * * *')` and the cron will start in 5 seconds. 
 ```bash
-# development
-$ npm run start
-
 # watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
 
-## Test
+If everything went well than you local url should be:
 
+`http://localhost:3005/`
+
+## Test
+I didn't implement any test because of the short deadline
 ```bash
 # unit tests
 $ npm run test
@@ -57,17 +69,5 @@ $ npm run test:e2e
 # test coverage
 $ npm run test:cov
 ```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
 
 Nest is [MIT licensed](LICENSE).
