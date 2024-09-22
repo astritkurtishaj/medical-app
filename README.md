@@ -58,7 +58,7 @@ If everything went well than you local url should be:
 `http://localhost:3005/`
 
 ## Test
-I didn't implement any test because of the short deadline
+No test implemented it's just a testing app to import large CSV files
 ```bash
 # unit tests
 $ npm run test
