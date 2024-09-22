@@ -41,7 +41,16 @@ export class ProductsService {
   }
 
   async findAll(): Promise<Product[]> {
-    return this.productModel.find({}).populate('manufacturer').populate('variants', '', );
+    return this.productModel.find({})
+      .populate({
+        path: 'manufacturer',
+        select: 'name',
+      })
+      .populate({
+        path: 'variants',
+        model: 'Variant',
+        select: '-product'
+      });
   }
 
   async findOne(id: string): Promise<Product> {
